@@ -2,7 +2,10 @@ import './App.css';
 
 function App() {
   return (
-    <header>Memory</header>
+    <div className='App'>
+      <header>memory</header>
+      <button>new game</button>
+    </div>
   );
 }
 

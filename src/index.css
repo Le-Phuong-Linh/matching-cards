@@ -1,3 +1,18 @@
-header {
+:root {
+  --plain-white: #ffffff;
+  --dodger-blue: #0083FC;
+}
+
+* {
+  box-sizing: border-box;
   text-transform: uppercase;
+}
+
+@font-face {
+  font-family: Formular Regular;
+  src: url(../public/fonts/Formular.ttf);
+}
+
+body {
+  background-color: var(--plain-white);
 }
