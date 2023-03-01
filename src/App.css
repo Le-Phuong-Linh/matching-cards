@@ -1,10 +1,9 @@
 .App {
-    max-width: 1440px;
     min-width: 968px;
+    font-family: Formular Regular;
 }
 
 header {
-    font-family: Formular Regular;
     font-weight: 700;
     font-size: 50px;
     width: 100%;
@@ -16,7 +15,6 @@ header {
   button {
     background-color: var(--dodger-blue);
     border: none;
-    font-family: Formular Regular;
     font-size: 24px;
     text-align: center;
     color: var(--plain-white);
@@ -31,4 +29,43 @@ header {
     cursor: pointer;
     background-color: var(--plain-white);
     color: var(--dodger-blue)
+  }
+
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    margin-top: 15px;
+    place-items: center;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    column-gap: 15px;
+    row-gap: 15px;
+  }
+
+  .count-text, .count {
+    font-size: 24px;
+  }
+
+  .count-text {
+    color: var(--dodger-blue);
+  }
+
+  .count {
+    color: var(--outrageous-orange);
+  }
+
+  .card {
+    width: 115px;
+  }
+
+  .cover, .card-image {
+    width: 115px;
+    height: 115px;
+  }
+
+  .cover {
+    background-color: var(--dodger-blue);
   }

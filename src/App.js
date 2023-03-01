@@ -13,7 +13,6 @@ const cardsImages = [
 ];
 
 function App() {
-
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
 
@@ -23,16 +22,34 @@ function App() {
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
 
-      setCards(shuffledCards);
-      setTurns(0);
+    setCards(shuffledCards);
+    setTurns(0);
 
-      console.log(cards, turns);
+    console.log(cards, turns);
   };
 
   return (
     <div className="App">
       <header>memory</header>
       <button onClick={resetGame}>new game</button>
+      <div className="main-grid">
+        <div className="count-text">Turns spent<span className="count">0</span></div>
+        <div className="cards-grid">
+          {cards.map((card) => (
+            <div className="card" key={card.id}>
+              <div>
+                <img
+                  className="card-image"
+                  src={card.src}
+                  alt="card-icon"
+                ></img>
+                <div className="cover"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div className="count-text">Turns left<span className="count">0</span></div>
+      </div>
     </div>
   );
 }
