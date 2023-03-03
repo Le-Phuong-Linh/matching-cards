@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import Card from "./components/Card";
 
 const cardsImages = [
   { src: "/icons/001.png" },
@@ -15,6 +16,8 @@ const cardsImages = [
 function App() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
+  const [firstChoice, setFirstChoice] = useState({});
+  const [secondChoice, setSecondChoice] = useState({});
 
   const resetGame = () => {
     const duplicatedCards = [...cardsImages, ...cardsImages];
@@ -24,31 +27,24 @@ function App() {
 
     setCards(shuffledCards);
     setTurns(0);
-
-    console.log(cards, turns);
   };
+
+  const setChoice = (card) => {
+    firstChoice ? console.log('Set choice 1') : console.log('Set choice 2');
+  }
 
   return (
     <div className="App">
       <header>memory</header>
       <button onClick={resetGame}>new game</button>
       <div className="main-grid">
-        <div className="count-text">Turns spent<span className="count">0</span></div>
+        <div className="count-text">Turns spent<span className="count"> 0</span></div>
         <div className="cards-grid">
           {cards.map((card) => (
-            <div className="card" key={card.id}>
-              <div>
-                <img
-                  className="card-image"
-                  src={card.src}
-                  alt="card-icon"
-                ></img>
-                <div className="cover"></div>
-              </div>
-            </div>
+            <Card key={card.id} cardProp={card} setChoiceProp={setChoice} />
           ))}
         </div>
-        <div className="count-text">Turns left<span className="count">0</span></div>
+        <div className="count-text">Turns left<span className="count"> 0</span></div>
       </div>
     </div>
   );

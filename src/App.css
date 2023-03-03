@@ -56,16 +56,3 @@ header {
   .count {
     color: var(--outrageous-orange);
   }
-
-  .card {
-    width: 115px;
-  }
-
-  .cover, .card-image {
-    width: 115px;
-    height: 115px;
-  }
-
-  .cover {
-    background-color: var(--dodger-blue);
-  }
