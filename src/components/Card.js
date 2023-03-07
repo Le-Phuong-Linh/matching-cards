@@ -3,7 +3,7 @@ import './Card.css';
 export default function Card( { cardProp, setChoiceProp } ) {
 
   const setChoice = () => {
-    setChoiceProp(cardProp);
+    setChoiceProp(cardProp)
   }
 
     return(

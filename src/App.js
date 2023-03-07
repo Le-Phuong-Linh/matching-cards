@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
 
@@ -16,35 +16,47 @@ const cardsImages = [
 function App() {
   const [cards, setCards] = useState([]);
   const [turns, setTurns] = useState(0);
-  const [firstChoice, setFirstChoice] = useState({});
-  const [secondChoice, setSecondChoice] = useState({});
+  const [firstCard, setFirstChoice] = useState(null);
+  const [secondCard, setSecondChoice] = useState(null);
 
   const resetGame = () => {
     const duplicatedCards = [...cardsImages, ...cardsImages];
     const shuffledCards = duplicatedCards
       .sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
-
     setCards(shuffledCards);
     setTurns(0);
   };
 
   const setChoice = (card) => {
-    firstChoice ? console.log('Set choice 1') : console.log('Set choice 2');
+    firstCard ? setSecondChoice(card) : setFirstChoice(card);
   }
+
+  const updateTurns = () => {
+    setFirstChoice(null);
+    setSecondChoice(null);
+    setTurns(turn => turn + 1)
+  }
+
+  useEffect(() => {
+    if (firstCard && secondCard) {
+      firstCard.src === secondCard.src ? console.log('cards match') : console.log('cards do not match');
+      updateTurns();
+    }
+  }, [firstCard, secondCard])
 
   return (
     <div className="App">
       <header>memory</header>
       <button onClick={resetGame}>new game</button>
       <div className="main-grid">
-        <div className="count-text">Turns spent<span className="count"> 0</span></div>
+        <div className="count-text">Turns spent<span className="count"> {turns} </span></div>
         <div className="cards-grid">
           {cards.map((card) => (
             <Card key={card.id} cardProp={card} setChoiceProp={setChoice} />
           ))}
         </div>
-        <div className="count-text">Turns left<span className="count"> 0</span></div>
+        <div className="count-text">Turns left<span className="count"> {`${40-turns}`}</span></div>
       </div>
     </div>
   );
