@@ -3,14 +3,14 @@ import "./App.css";
 import Card from "./components/Card";
 
 const cardsImages = [
-  { src: "/icons/001.png" },
-  { src: "/icons/002.png" },
-  { src: "/icons/003.png" },
-  { src: "/icons/004.png" },
-  { src: "/icons/005.png" },
-  { src: "/icons/006.png" },
-  { src: "/icons/007.png" },
-  { src: "/icons/008.png" },
+  { src: "/icons/001.png", isMatched: false, isFlipped: false },
+  { src: "/icons/002.png", isMatched: false, isFlipped: false },
+  { src: "/icons/003.png", isMatched: false, isFlipped: false },
+  { src: "/icons/004.png", isMatched: false, isFlipped: false },
+  { src: "/icons/005.png", isMatched: false, isFlipped: false },
+  { src: "/icons/006.png", isMatched: false, isFlipped: false },
+  { src: "/icons/007.png", isMatched: false, isFlipped: false },
+  { src: "/icons/008.png", isMatched: false, isFlipped: false },
 ];
 
 function App() {
@@ -20,12 +20,10 @@ function App() {
   const [secondCard, setSecondChoice] = useState(null);
 
   const resetGame = () => {
-    const duplicatedCards = [...cardsImages, ...cardsImages];
-    const shuffledCards = duplicatedCards
-      .sort(() => Math.random() - 0.5)
+    const updatedCards = [...cardsImages, ...cardsImages].sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
-    setCards(shuffledCards);
-    setTurns(0);
+    setCards(updatedCards);
+    setTurns(0);;
   };
 
   const setChoice = (card) => {
@@ -40,10 +38,24 @@ function App() {
 
   useEffect(() => {
     if (firstCard && secondCard) {
-      firstCard.src === secondCard.src ? console.log('cards match') : console.log('cards do not match');
-      updateTurns();
+      if (firstCard.src === secondCard.src) {
+        setCards(cards => {
+          return cards.map(card => {
+            if (card.src === firstCard.src) {
+              return {...card, isMatched: true}
+            } else return card
+          })
+        });
+        console.log('cards match');
+        updateTurns();
+      } else {
+        console.log('cards do not match');
+        updateTurns();
+      }
     }
   }, [firstCard, secondCard])
+
+  console.log(cards);
 
   return (
     <div className="App">
@@ -56,7 +68,7 @@ function App() {
             <Card key={card.id} cardProp={card} setChoiceProp={setChoice} />
           ))}
         </div>
-        <div className="count-text">Turns left<span className="count"> {`${40-turns}`}</span></div>
+        <div className="count-text">Turns left<span className="count"> {`${40 - turns}`}</span></div>
       </div>
     </div>
   );
