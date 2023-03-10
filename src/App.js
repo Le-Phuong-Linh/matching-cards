@@ -3,14 +3,14 @@ import "./App.css";
 import Card from "./components/Card";
 
 const cardsImages = [
-  { src: "/icons/001.png", isMatched: false, isFlipped: false },
-  { src: "/icons/002.png", isMatched: false, isFlipped: false },
-  { src: "/icons/003.png", isMatched: false, isFlipped: false },
-  { src: "/icons/004.png", isMatched: false, isFlipped: false },
-  { src: "/icons/005.png", isMatched: false, isFlipped: false },
-  { src: "/icons/006.png", isMatched: false, isFlipped: false },
-  { src: "/icons/007.png", isMatched: false, isFlipped: false },
-  { src: "/icons/008.png", isMatched: false, isFlipped: false },
+  { src: "/icons/001.png", isMatched: false },
+  { src: "/icons/002.png", isMatched: false },
+  { src: "/icons/003.png", isMatched: false },
+  { src: "/icons/004.png", isMatched: false },
+  { src: "/icons/005.png", isMatched: false },
+  { src: "/icons/006.png", isMatched: false },
+  { src: "/icons/007.png", isMatched: false },
+  { src: "/icons/008.png", isMatched: false },
 ];
 
 function App() {
@@ -65,7 +65,7 @@ function App() {
         <div className="count-text">Turns spent<span className="count"> {turns} </span></div>
         <div className="cards-grid">
           {cards.map((card) => (
-            <Card key={card.id} cardProp={card} setChoiceProp={setChoice} />
+            <Card key={card.id} cardProp={card} setChoiceProp={setChoice} flipped={card.matched || card === firstCard || card === secondCard} />
           ))}
         </div>
         <div className="count-text">Turns left<span className="count"> {`${40 - turns}`}</span></div>
