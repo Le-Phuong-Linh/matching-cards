@@ -1,6 +1,6 @@
 import './Card.css';
 
-export default function Card( { cardProp, setChoiceProp } ) {
+export default function Card( { cardProp, setChoiceProp, flippedProp } ) {
 
   const handleClick = () => {
     setChoiceProp(cardProp);
@@ -8,7 +8,7 @@ export default function Card( { cardProp, setChoiceProp } ) {
 
     return(
         <div className="card">
-        <div>
+        <div className="flipped">
           <img
             className="card-image"
             src={cardProp.src}

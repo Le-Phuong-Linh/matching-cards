@@ -55,8 +55,6 @@ function App() {
     }
   }, [firstCard, secondCard])
 
-  console.log(cards);
-
   return (
     <div className="App">
       <header>memory</header>
@@ -65,7 +63,7 @@ function App() {
         <div className="count-text">Turns spent<span className="count"> {turns} </span></div>
         <div className="cards-grid">
           {cards.map((card) => (
-            <Card key={card.id} cardProp={card} setChoiceProp={setChoice} flipped={card.matched || card === firstCard || card === secondCard} />
+            <Card key={card.id} cardProp={card} setChoiceProp={setChoice} flippedProp={card.matched || card === firstCard || card === secondCard} />
           ))}
         </div>
         <div className="count-text">Turns left<span className="count"> {`${40 - turns}`}</span></div>

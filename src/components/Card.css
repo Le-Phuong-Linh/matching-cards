@@ -1,5 +1,6 @@
 .card {
     width: 115px;
+    position: relative;
   }
 
   .cover, .card-image {
@@ -9,4 +10,12 @@
 
   .cover {
     background-color: var(--dodger-blue);
+  }
+
+  .card .cover {
+    position: absolute;
+  }
+
+  .flipped .cover {
+    z-index: 2;
   }
