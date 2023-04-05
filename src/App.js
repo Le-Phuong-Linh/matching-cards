@@ -18,11 +18,15 @@ function App() {
   const [turns, setTurns] = useState(0);
   const [firstCard, setFirstChoice] = useState(null);
   const [secondCard, setSecondChoice] = useState(null);
+  const [disabledState, setDisabledState] = useState(false);
+  const [gameOverState, setGameOverState] = useState(false);
 
   const resetGame = () => {
     const updatedCards = [...cardsImages, ...cardsImages].sort(() => Math.random() - 0.5)
       .map((card) => ({ ...card, id: Math.random() }));
     setCards(updatedCards);
+    setFirstChoice(null);
+    setSecondChoice(null);
     setTurns(0);;
   };
 
@@ -33,11 +37,18 @@ function App() {
   const updateTurns = () => {
     setFirstChoice(null);
     setSecondChoice(null);
-    setTurns(turn => turn + 1)
+    setTurns(turn => turn + 1);
+    setDisabledState(false);
+  }
+
+  const updateGameState = () => {
+    turns === 39 ? setGameOverState(true) : setGameOverState(false);
+    // turns === 2 ? console.log('game over') : console.log(turns);
   }
 
   useEffect(() => {
     if (firstCard && secondCard) {
+      setDisabledState(true);
       if (firstCard.src === secondCard.src) {
         setCards(cards => {
           return cards.map(card => {
@@ -46,11 +57,15 @@ function App() {
             } else return card
           })
         });
-        console.log('cards match');
-        updateTurns();
+        setTimeout(() => {
+          updateTurns();
+          updateGameState();
+        }, 500);
       } else {
-        console.log('cards do not match');
-        updateTurns();
+        setTimeout(() => {
+          updateTurns();
+          updateGameState();
+        }, 500);
       }
     }
   }, [firstCard, secondCard])
@@ -60,13 +75,13 @@ function App() {
       <header>memory</header>
       <button onClick={resetGame}>new game</button>
       <div className="main-grid">
-        <div className="count-text">Turns spent<span className="count"> {turns} </span></div>
+        <div className="count-text">Turns spent<br/><span className="count"> {turns} </span></div>
         <div className="cards-grid">
           {cards.map((card) => (
-            <Card key={card.id} cardProp={card} setChoiceProp={setChoice} flippedProp={card.matched || card === firstCard || card === secondCard} />
+            <Card key={card.id} cardProp={card} setChoiceProp={setChoice} flippedProp={card === firstCard || card === secondCard} matchedProp = {card.isMatched} disabledProp = {disabledState}/>
           ))}
         </div>
-        <div className="count-text">Turns left<span className="count"> {`${40 - turns}`}</span></div>
+        <div className="count-text">Turns left<br/><span className="count"> {`${40 - turns}`}</span></div>
       </div>
     </div>
   );

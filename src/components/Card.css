@@ -10,12 +10,15 @@
 
   .cover {
     background-color: var(--dodger-blue);
-  }
-
-  .card .cover {
     position: absolute;
+    top: 0;
+    transform: rotateY('90deg');
   }
 
   .flipped .cover {
-    z-index: 2;
+    opacity: 0;
+  }
+
+  .matched {
+    opacity: 0;
   }

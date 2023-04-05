@@ -33,9 +33,9 @@ header {
 
   .main-grid {
     display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
+    grid-template-columns: 2fr 1fr 2fr;
     margin-top: 15px;
-    place-items: center;
+    /* place-items: center; */
   }
 
   .cards-grid {
@@ -47,6 +47,7 @@ header {
 
   .count-text, .count {
     font-size: 24px;
+    text-align: center;
   }
 
   .count-text {
