@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
+import Notification from "./components/Notification";
 
 const cardsImages = [
   { src: "/icons/001.png", isMatched: false },
@@ -19,7 +20,9 @@ function App() {
   const [firstCard, setFirstChoice] = useState(null);
   const [secondCard, setSecondChoice] = useState(null);
   const [disabledState, setDisabledState] = useState(false);
-  const [gameOverState, setGameOverState] = useState(false);
+  
+  // TODO
+  const [gameState, setGameState] = useState('gameState');
 
   const resetGame = () => {
     const updatedCards = [...cardsImages, ...cardsImages].sort(() => Math.random() - 0.5)
@@ -41,9 +44,13 @@ function App() {
     setDisabledState(false);
   }
 
-  const updateGameState = () => {
-    turns === 39 ? setGameOverState(true) : setGameOverState(false);
-    // turns === 2 ? console.log('game over') : console.log(turns);
+  // TODO
+  const setGameOverState = () => {
+    if (turns === 2) {
+      setGameState('gameLost')
+    } else {
+      setGameState('gameWon')
+    }
   }
 
   useEffect(() => {
@@ -59,12 +66,14 @@ function App() {
         });
         setTimeout(() => {
           updateTurns();
-          updateGameState();
+          // TODO
+          setGameOverState(); 
         }, 500);
       } else {
         setTimeout(() => {
           updateTurns();
-          updateGameState();
+          // TODO
+          setGameOverState(); 
         }, 500);
       }
     }
@@ -78,11 +87,12 @@ function App() {
         <div className="count-text">Turns spent<br/><span className="count"> {turns} </span></div>
         <div className="cards-grid">
           {cards.map((card) => (
-            <Card key={card.id} cardProp={card} setChoiceProp={setChoice} flippedProp={card === firstCard || card === secondCard} matchedProp = {card.isMatched} disabledProp = {disabledState}/>
+            <Card key={card.id} cardProp={card} setChoiceProp={setChoice} flippedProp={card === firstCard || card === secondCard} matchedProp = {card.isMatched} disabledProp={disabledState}/>
           ))}
         </div>
         <div className="count-text">Turns left<br/><span className="count"> {`${40 - turns}`}</span></div>
       </div>
+      <Notification resetGameProp={resetGame} turnsProp={turns} gameOverState={gameState}></Notification>
     </div>
   );
 }
