@@ -1,5 +1,4 @@
 .notification-box {
-    z-index: 20;
     position: absolute;
     width: 685px;
     height: 371px;
@@ -18,4 +17,12 @@
     line-height: 208%;
     text-align: center;
     color: #FFFFFF;
+}
+
+.visible {
+    z-index: 20;
+}
+
+.hide {
+    display: none;
 }

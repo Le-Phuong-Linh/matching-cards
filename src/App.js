@@ -22,7 +22,7 @@ function App() {
   const [disabledState, setDisabledState] = useState(false);
   
   // TODO
-  const [gameState, setGameState] = useState('gameState');
+  const [gameState, setGameState] = useState('gameOn');
 
   const resetGame = () => {
     const updatedCards = [...cardsImages, ...cardsImages].sort(() => Math.random() - 0.5)
@@ -31,6 +31,7 @@ function App() {
     setFirstChoice(null);
     setSecondChoice(null);
     setTurns(0);;
+    setGameState('gameOn')
   };
 
   const setChoice = (card) => {
@@ -41,15 +42,18 @@ function App() {
     setFirstChoice(null);
     setSecondChoice(null);
     setTurns(turn => turn + 1);
+    updateGameState();
     setDisabledState(false);
+    console.log(turns);
+    console.log(cards)
   }
 
-  // TODO
-  const setGameOverState = () => {
-    if (turns === 2) {
-      setGameState('gameLost')
-    } else {
+  const updateGameState = () => {
+    let allFlipped = cards.every(card => card.isMatched === true);
+    if (turns < 39 && allFlipped) {
       setGameState('gameWon')
+    } else if (turns >= 39 && !allFlipped) {
+      setGameState('gameLost')
     }
   }
 
@@ -60,20 +64,17 @@ function App() {
         setCards(cards => {
           return cards.map(card => {
             if (card.src === firstCard.src) {
+//TODO figure out why two more clicks are needed to change the last 
               return {...card, isMatched: true}
             } else return card
           })
         });
         setTimeout(() => {
           updateTurns();
-          // TODO
-          setGameOverState(); 
         }, 500);
       } else {
         setTimeout(() => {
           updateTurns();
-          // TODO
-          setGameOverState(); 
         }, 500);
       }
     }
@@ -92,7 +93,7 @@ function App() {
         </div>
         <div className="count-text">Turns left<br/><span className="count"> {`${40 - turns}`}</span></div>
       </div>
-      <Notification resetGameProp={resetGame} turnsProp={turns} gameOverState={gameState}></Notification>
+      <Notification resetGameProp={resetGame} turnsProp={turns} gameStateProp={gameState}></Notification>
     </div>
   );
 }
